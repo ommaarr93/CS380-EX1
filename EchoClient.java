@@ -1,8 +1,10 @@
+// Omar Rodriguez
+// CS 380
+// Professor Nima Davarpanah
 
-import java.io.InputStream;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.Socket;
+import java.io.*;
+import java.net.*;
+import java.util.*;
 
 public final class EchoClient {
 
@@ -11,22 +13,22 @@ public final class EchoClient {
             InputStream is = socket.getInputStream();
             InputStreamReader isr = new InputStreamReader(is, "UTF-8");
             BufferedReader br = new BufferedReader(isr);
-            System.out.println(br.readLine());
+
+            Scanner keyboard = new Scanner (System.in);
+            PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
+
+            System.out.print("Client> ");
+            String in = keyboard.nextLine().toLowerCase();
+
+            while(!in.equals("exit")) {
+            	output.println(in);
+            	System.out.println(br.readLine());
+            	System.out.print("Client> ");
+            	in = keyboard.nextLine();
+            }
+
+            socket.close();
+
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
